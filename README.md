@@ -1,5 +1,9 @@
 # Sentry client for zap logger
 
+Forked from https://github.com/TheZeroSlave/zapsentry 
+
+Added support for Go modules and few other changes.
+
 Integration of sentry client into zap.Logger is pretty simple:
 ```golang
 func modifyToSentryLogger(log *zap.Logger, DSN string) *zap.Logger {

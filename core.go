@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	traceContextLines = 3
-	traceSkipFrames   = 2
+	traceContextLines      = 3
+	defaultTraceSkipFrames = 2
 )
 
 func NewCore(cfg Configuration, factory SentryClientFactory) (zapcore.Core, error) {
@@ -46,6 +46,10 @@ func (c *core) Write(ent zapcore.Entry, fs []zapcore.Field) error {
 	}
 
 	if !c.cfg.DisableStacktrace {
+		traceSkipFrames := defaultTraceSkipFrames
+		if c.cfg.SkipFrames > 0 {
+			traceSkipFrames = c.cfg.SkipFrames
+		}
 		trace := raven.NewStacktrace(traceSkipFrames, traceContextLines, nil)
 		if trace != nil {
 			packet.Interfaces = append(packet.Interfaces, trace)

@@ -9,4 +9,5 @@ type Configuration struct {
 	Tags              map[string]string
 	DisableStacktrace bool
 	Level             zapcore.Level
+	SkipFrames        int
 }
